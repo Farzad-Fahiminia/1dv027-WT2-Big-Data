@@ -6,11 +6,19 @@
  */
 
 import { IoCContainer } from '../util/IoCContainer.js'
+import { HomeService } from '../services/HomeService.js'
 import { HomeController } from '../controllers/homeController.js'
 
 const iocContainer = new IoCContainer()
 
+iocContainer.register('HomeService', HomeService, {
+  singleton: true
+})
+
 iocContainer.register('HomeController', HomeController, {
+  dependencies: [
+    'HomeService'
+  ],
   singleton: true
 })
 
