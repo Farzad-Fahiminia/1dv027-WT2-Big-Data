@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 
-import fs from 'fs'
 import { Client } from '@elastic/elasticsearch'
+import fs from 'fs'
 
 /**
  * Encapsulates a service.
@@ -26,7 +26,7 @@ export class Elasticsearch {
    */
   constructor () {
     this.#client = new Client({
-      node: 'http://localhost:9200',
+      node: 'https://localhost:9200',
       auth: {
         username: process.env.ELASTIC_USERNAME,
         password: process.env.ELASTIC_PASSWORD
@@ -37,6 +37,7 @@ export class Elasticsearch {
       }
     })
   }
+  
   /**
    * Handles the fetchData.
    *
@@ -44,7 +45,12 @@ export class Elasticsearch {
    */
   async fetchData () {
 
-    const response = 'HELLO ELASTIC WORLD!'
+    // const response = 'HELLO ELASTIC WORLD!'
+    const response = await this.#client.search({ index: 'netflixdata', body: { size: 30 } })
+
+    response.hits.hits.map(title => {
+      console.log(title)
+    })
 
     return response
   }
