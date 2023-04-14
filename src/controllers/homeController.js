@@ -18,6 +18,7 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
+    console.log('HEJ HEJ')
     res.render('home/index')
   }
 }

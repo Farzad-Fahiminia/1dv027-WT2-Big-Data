@@ -66,10 +66,6 @@ try {
     // Pass the base URL to the views.
     res.locals.baseURL = baseURL
 
-    if (req.session.loggedIn) {
-      res.locals.loggedIn = req.session.loggedIn
-    }
-
     next()
   })
 
