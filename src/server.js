@@ -8,7 +8,6 @@
 import { container } from './config/bootstrap.js'
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
-import session from 'express-session'
 import helmet from 'helmet'
 import logger from 'morgan'
 import createError from 'http-errors'
@@ -61,25 +60,6 @@ try {
 
   // Serve static files.
   app.use(express.static(join(directoryFullName, '..', 'public')))
-
-  // Setup and use session middleware (https://github.com/expressjs/session)
-  const sessionOptions = {
-    name: process.env.SESSION_NAME, // Don't use default session cookie name.
-    secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
-    resave: false, // Resave even if a request is not changing the session.
-    saveUninitialized: false, // Don't save a created but not modified session.
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
-      sameSite: 'lax'
-    }
-  }
-
-  if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
-    sessionOptions.cookie.secure = true // serve secure cookies
-  }
-
-  app.use(session(sessionOptions))
 
   // Middleware to be executed before the routes.
   app.use((req, res, next) => {
