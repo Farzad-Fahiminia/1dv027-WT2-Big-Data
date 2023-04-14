@@ -1,0 +1,33 @@
+{
+  "name": "assignment-wt2-big-data",
+  "version": "1.0.0",
+  "description": "1DV027 - Assignment-WT2-Big-Data",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --inspect -r dotenv/config src/server.js",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
+  },
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.17.3",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.3",
+    "helmet": "^5.0.2",
+    "http-errors": "^2.0.0",
+    "mongoose": "^6.2.3",
+    "mongoose-lean-virtuals": "^0.9.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.4",
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "author": "Farzad Fahiminia <ff222cb@student.lnu.se>",
+  "license": "MIT",
+  "private": true
+}
