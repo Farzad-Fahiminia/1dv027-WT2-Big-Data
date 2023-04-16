@@ -44,14 +44,24 @@ export class Elasticsearch {
    * @returns {object} - Returns the response object.
    */
   async fetchData () {
+    const movieCollection = []
 
     // const response = 'HELLO ELASTIC WORLD!'
     const response = await this.#client.search({ index: 'netflixdata', body: { size: 30 } })
 
-    response.hits.hits.map(title => {
-      console.log(title)
+    response.hits.hits.forEach(title => {
+      // console.log(title)
+      const movieObject = {
+        title: title._source.title,
+        type: title._source.type,
+        releaseYear: title._source.release_year,
+        imdbScore: title._source.imdb_score
+      }
+      movieCollection.push(movieObject)
     })
 
-    return response
+    console.log(movieCollection)
+
+    return movieCollection
   }
 }
