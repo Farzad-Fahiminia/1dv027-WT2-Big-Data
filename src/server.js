@@ -35,17 +35,6 @@ try {
     })
   )
 
-  // app.use(
-  //   helmet.contentSecurityPolicy({
-  //     directives: {
-  //       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-  //       'script-src': ["'self'", 'code.jquery.com', 'cdn.jsdelivr.net', "'unsafe-eval'", 'cdnjs.cloudflare.com', 'code.highcharts.com', "'unsafe-inline'"]
-  //     },
-  //     crossOriginEmbedderPolicy: false,
-  //     crossOriginResourcePolicy: false
-  //   })
-  // )
-
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
 

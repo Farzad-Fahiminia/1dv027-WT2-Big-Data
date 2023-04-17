@@ -1,21 +1,21 @@
 <div class="wrapper container">
-  <h1>Chart presentation of Elasticsearch</h1>
+  <h1 class="center">Top 10 IMDB rated on Netflix</h1>
   <div>
     <canvas id="myChart"></canvas>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <script type="text/javascript">
+    const data = JSON.parse('<%- JSON.stringify(viewData) %>')
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['5', '6', '7', '8', '9', '10'],
+        labels: data.map(movie => movie.title),
         datasets: [{
-          label: 'Number of movies with a specific IMDB rating on Netflix',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'IMDB score on movie',
+          data: data.map(movie => movie.imdbScore),
           backgroundColor: [
                 'rgba(0, 179, 224, 0.2)'
             ],
@@ -34,12 +34,5 @@
       }
     });
   </script>
-
-  <p>
-    <%= viewData %>
-  </p>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in tortor mi. Sed lacus sapien, rhoncus aliquet pellentesque eu, hendrerit et urna. Vestibulum vel ligula dolor. Integer gravida nisi vel lectus efficitur eleifend. Maecenas sodales urna sed tellus tempus, at iaculis elit cursus. Ut rhoncus porta augue at ultrices. 
-  </p>
 </div>
 <!-- /container -->

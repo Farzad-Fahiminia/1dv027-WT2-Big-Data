@@ -45,9 +45,8 @@ export class Elasticsearch {
    */
   async fetchData () {
     const movieCollection = []
-    // const response = await this.#client.search({ index: 'netflixdata', body: { size: 25 } })
     const response = await this.#client.search({ index: 'netflixdata', body: {
-      size: 25,
+      size: 10,
       query: {
         match: { type: 'MOVIE' }
       },
@@ -61,7 +60,6 @@ export class Elasticsearch {
     } })
 
     response.hits.hits.forEach(title => {
-      // console.log(title)
       const movieObject = {
         title: title._source.title,
         type: title._source.type,
@@ -70,8 +68,6 @@ export class Elasticsearch {
       }
       movieCollection.push(movieObject)
     })
-
-    console.log(movieCollection)
 
     return movieCollection
   }
