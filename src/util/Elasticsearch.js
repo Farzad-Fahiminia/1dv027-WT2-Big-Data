@@ -26,7 +26,7 @@ export class Elasticsearch {
    */
   constructor () {
     this.#client = new Client({
-      node: process.env.BONSAI_URL,
+      node: process.env.ELASTIC_URL,
       auth: {
         username: process.env.ELASTIC_USERNAME,
         password: process.env.ELASTIC_PASSWORD
@@ -60,7 +60,7 @@ export class Elasticsearch {
         ]
       } })
   
-      response.hits.hits.forEach(title => {
+      response.body.hits.hits.forEach(title => {
         const movieObject = {
           title: title._source.title,
           type: title._source.type,
