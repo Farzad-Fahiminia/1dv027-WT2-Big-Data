@@ -30,10 +30,6 @@ export class Elasticsearch {
       auth: {
         username: process.env.ELASTIC_USERNAME,
         password: process.env.ELASTIC_PASSWORD
-      },
-      tls: {
-        ca: fs.readFileSync('/Users/farzad/elasticsearch-8.7.0/config/certs/http_ca.crt'),
-        rejectUnauthorized: false
       }
     })
   }
