@@ -36,8 +36,10 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   async index (req, res, next) {
-    const viewData = await this.#service.elasticServiceCall()
+    const viewData = await this.#service.elasticServiceCall(req, res, next)
 
-    res.render('home/index', { viewData } )
+    if (viewData) {
+      res.render('home/index', { viewData } )
+    }
   }
 }

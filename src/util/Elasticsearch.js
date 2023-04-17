@@ -26,7 +26,7 @@ export class Elasticsearch {
    */
   constructor () {
     this.#client = new Client({
-      node: 'https://localhost:9200',
+      node: process.env.BONSAI_URL,
       auth: {
         username: process.env.ELASTIC_USERNAME,
         password: process.env.ELASTIC_PASSWORD
@@ -43,32 +43,37 @@ export class Elasticsearch {
    *
    * @returns {object} - Returns the response object.
    */
-  async fetchData () {
-    const movieCollection = []
-    const response = await this.#client.search({ index: 'netflixdata', body: {
-      size: 10,
-      query: {
-        match: { type: 'MOVIE' }
-      },
-      sort: [
-        {
-          imdb_score: {
-            order: 'desc'
+  async fetchData (req, res, next) {
+    try {
+      const movieCollection = []
+      const response = await this.#client.search({ index: 'netflixdata', body: {
+        size: 10,
+        query: {
+          match: { type: 'MOVIE' }
+        },
+        sort: [
+          {
+            imdb_score: {
+              order: 'desc'
+            }
           }
+        ]
+      } })
+  
+      response.hits.hits.forEach(title => {
+        const movieObject = {
+          title: title._source.title,
+          type: title._source.type,
+          releaseYear: title._source.release_year,
+          imdbScore: title._source.imdb_score
         }
-      ]
-    } })
-
-    response.hits.hits.forEach(title => {
-      const movieObject = {
-        title: title._source.title,
-        type: title._source.type,
-        releaseYear: title._source.release_year,
-        imdbScore: title._source.imdb_score
-      }
-      movieCollection.push(movieObject)
-    })
-
-    return movieCollection
+        movieCollection.push(movieObject)
+      })
+  
+      return movieCollection
+      
+    } catch (error) {
+      next(error)
+    }
   }
 }

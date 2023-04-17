@@ -18,8 +18,8 @@ export class HomeService {
    *
    * @returns {object} - Returns the response object.
    */
-  elasticServiceCall () {
-    const response = elasticsearch.fetchData()
+  elasticServiceCall (req, res, next) {
+    const response = elasticsearch.fetchData(req, res, next)
 
     return response
   }
