@@ -45,9 +45,20 @@ export class Elasticsearch {
    */
   async fetchData () {
     const movieCollection = []
-
-    // const response = 'HELLO ELASTIC WORLD!'
-    const response = await this.#client.search({ index: 'netflixdata', body: { size: 30 } })
+    // const response = await this.#client.search({ index: 'netflixdata', body: { size: 25 } })
+    const response = await this.#client.search({ index: 'netflixdata', body: {
+      size: 25,
+      query: {
+        match: { type: 'MOVIE' }
+      },
+      sort: [
+        {
+          imdb_score: {
+            order: 'desc'
+          }
+        }
+      ]
+    } })
 
     response.hits.hits.forEach(title => {
       // console.log(title)

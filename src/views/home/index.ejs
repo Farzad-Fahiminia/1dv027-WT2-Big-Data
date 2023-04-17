@@ -1,7 +1,40 @@
 <div class="wrapper container">
-  <h1>
-    WT2 - Big Data
-  </h1>
+  <h1>Chart presentation of Elasticsearch</h1>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script type="text/javascript">
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['5', '6', '7', '8', '9', '10'],
+        datasets: [{
+          label: 'Number of movies with a specific IMDB rating on Netflix',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+                'rgba(0, 179, 224, 0.2)'
+            ],
+            borderColor: [
+                'rgba(0, 179, 224, 1)'
+            ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
   <p>
     <%= viewData %>
   </p>
